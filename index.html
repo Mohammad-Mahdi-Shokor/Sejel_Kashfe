@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="/Sejel_Kashfe/">
 
   <meta charset="UTF-8">
@@ -31,8 +18,61 @@
 
   <title>sejel_kashfe</title>
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Full-screen black background */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    /* Simple loading spinner */
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Hide flutter app until loaded */
+    #flutter_container {
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
 </head>
 <body>
+  <!-- Loading screen -->
+  <div id="loading_screen">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <!-- Flutter app will attach here -->
+  <div id="flutter_container"></div>
+
   <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Wait for Flutter to load
+    window.addEventListener('flutter-first-frame', function () {
+      document.getElementById('loading_screen').style.display = 'none';
+      document.getElementById('flutter_container').style.display = 'block';
+    });
+  </script>
 </body>
 </html>
